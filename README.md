@@ -1,24 +1,34 @@
-# Yuki Care Bot
+# 🐕 Yukiboi Care Bot
 
-A Discord bot to help manage daily care routines for Yuki the dog. Features include:
+Woof! I'm Yuki's personal care assistant discord bot! Here to help keep track of my daily routines and make sure I'm happy and healthy! 🐾
 
-- Scheduled feeding reminders (9 AM, 1 PM, and 6 PM)
-- Feeding confirmation tracking
-- Follow-up reminders if meals are missed
-- Daily cleaning reminder at 11 PM
-- Cleaning confirmation tracking
+## ✨ Features
+- 🍽️ Feeding time reminders (9 AM, 1 PM, and 6 PM)
+- 📝 Track when I get my yummy meals
+- ⏰ Gentle reminders if someone forgets to feed me
+- 🧹 Daily cleaning reminder at 11 PM
+- 🗓️ Schedule and track my important appointments
+- 🔔 Never miss an event with automated reminders
 
-## Commands
+## 🎮 Commands
+- `feed` - Let everyone know I got my food! 🍖
+- `clean` - Mark my space as fresh and tidy! ✨
+- `history` - See my meal diary for today 📖
+- `schedule` - Check what exciting events are coming up! 📅
+- `sched [event] [MM/DD/YYYY] [HH:MM AM/PM]` - Add new events to my calendar 
+  Example: `sched Vet Visit 12/25/2023 02:30 PM` 🗓️
+- `help` - Show all the ways to take care of me 💕
+- `invite` - Share me with other servers! 🎉
 
-- `fed` - Mark Yuki as fed during the current feeding period
-- `cleaned` - Mark Yuki's space as cleaned
+## 🚀 Quick Setup
+1. Configure your `.env` file:
+```sh
+DISCORD_TOKEN=your_bot_token_here
+CHANNEL_ID=your_channel_id_here
+```   
+2. Install dependencies:
+```sh
+npm install
+``` 
 
-## Setup
-
-1. Install dependencies:
-```npm install```
-
-2. Configure `.env` file with your Discord bot token and channel ID
-
-3. Start the bot:
-```npm start```
+🐾 Vibe coded with 💖 by polyxenna
