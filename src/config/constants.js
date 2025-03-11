@@ -56,10 +56,19 @@ const calculateCronTime = (hour, minute, offsetMinutes = 0) => {
     return { hour: newHour, minute: newMinute };
 };
 
+const removeSchedule = (eventName) => {
+    const initialLength = schedules.length;
+    schedules = schedules.filter(
+        (schedule) => schedule.event.toLowerCase() !== eventName.toLowerCase(),
+    );
+    return initialLength !== schedules.length;
+};
+
 module.exports = {
     FEEDING_TIMES,
     CLEANING_TIME,
     calculateCronTime,
     addSchedule,
     getUpcomingSchedules,
+    removeSchedule,
 };

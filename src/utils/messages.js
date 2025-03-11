@@ -105,6 +105,19 @@ const scheduleViewResponses = [
     "📆 *Excited bounce* Here's what's coming up for me:",
 ];
 
+const scheduleRemovalResponses = {
+    success: [
+        "🗑️ *Tail wag* Okay, I've removed that event from my schedule!",
+        "📅 *Happy bark* All done! That event is now off my calendar!",
+        "✨ *Playful bounce* Schedule updated! Event removed successfully!",
+    ],
+    notFound: [
+        "🤔 *Confused head tilt* I couldn't find that event in my schedule...",
+        "❓ *Gentle whimper* Are you sure that event was scheduled?",
+        "🔍 *Searching look* That event doesn't seem to be in my calendar...",
+    ],
+};
+
 const helpMessage = `
 🐕 **Yuki's Care Bot Commands**
 \`feed\` - Mark my meal as given (once per meal time)
@@ -112,6 +125,7 @@ const helpMessage = `
 \`history\` - See my feeding record for today
 \`schedule\` - View all my upcoming events
 \`sched [event] [MM/DD/YYYY] [HH:MM AM/PM]\` - Schedule an event
+\`remove [event]\` - Remove a scheduled event
 \`help\` - Show this message
 \`invite\` - Invite me to your server!
 `;
@@ -130,5 +144,6 @@ module.exports = {
     getRandomResponse,
     scheduleReminders,
     scheduleViewResponses,
+    scheduleRemovalResponses,
     helpMessage,
 };

@@ -106,7 +106,7 @@ if (message.content.toLowerCase() === "help") {
             },
             {
                 name: "\n📅 Schedule Commands",
-                value: "`schedule` - View all my upcoming events\n`sched [event] [MM/DD/YYYY] [HH:MM AM/PM]` - Schedule an event\nExample: `sched Vet Visit 12/25/2023 02:30 PM`",
+                value: "`schedule` - View all my upcoming events\n`sched [event] [MM/DD/YYYY] [HH:MM AM/PM]` - Schedule an event\nExample: `sched Vet Visit 12/25/2023 02:30 PM`\n`remove [event]` - Remove a scheduled event",
                 inline: false,
             },
             {
@@ -203,6 +203,28 @@ if (message.content.toLowerCase() === "help") {
             });
 
         message.channel.send({ embeds: [inviteEmbed] });
+    }
+
+    if (message.content.toLowerCase().startsWith("remove ")) {
+        const eventName = message.content.slice(7).trim();
+
+        if (!eventName) {
+            message.reply("❌ Please specify an event to remove!\nExample: remove Vet Visit");
+            return;
+        }
+
+        const { removeSchedule } = require("./config/constants");
+        const { scheduleRemovalResponses, getRandomResponse } = require("./utils/messages");
+
+        const removed = removeSchedule(eventName);
+
+        if (removed) {
+            const successResponse = getRandomResponse(scheduleRemovalResponses.success);
+            message.reply(successResponse);
+        } else {
+            const notFoundResponse = getRandomResponse(scheduleRemovalResponses.notFound);
+            message.reply(notFoundResponse);
+        }
     }
 });
 
