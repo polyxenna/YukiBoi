@@ -17,6 +17,7 @@ Woof! I'm Yuki's personal care assistant discord bot! Here to help keep track of
 - `schedule` - Check what exciting events are coming up! 📅
 - `sched [event] [MM/DD/YYYY] [HH:MM AM/PM]` - Add new events to my calendar 
   Example: `sched Vet Visit 12/25/2023 02:30 PM` 🗓️
+- `remove` - Remove a scheduled event
 - `help` - Show all the ways to take care of me 💕
 - `invite` - Share me with other servers! 🎉
 
