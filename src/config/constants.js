@@ -19,8 +19,9 @@ const getUpcomingSchedules = () => {
         .filter((schedule) => schedule.date > now)
         .map((schedule) => ({
             event: schedule.event,
-            date: schedule.date.toLocaleDateString(),
-            time: schedule.date.toLocaleTimeString([], {
+            date: schedule.date.toLocaleDateString("en-US", { timeZone: "Asia/Manila" }),
+            time: schedule.date.toLocaleTimeString("en-US", {
+                timeZone: "Asia/Manila",
                 hour: "2-digit",
                 minute: "2-digit",
             }),
@@ -30,7 +31,11 @@ const getUpcomingSchedules = () => {
 
 const getTimeUntil = (date) => {
     const now = new Date();
-    const diff = date - now;
+    // Convert both dates to Asia/Manila timezone
+    const targetDate = new Date(date.toLocaleString("en-US", { timeZone: "Asia/Manila" }));
+    const currentDate = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Manila" }));
+
+    const diff = targetDate - currentDate;
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 
@@ -39,7 +44,6 @@ const getTimeUntil = (date) => {
     }
     return `${hours} hours`;
 };
-
 const calculateCronTime = (hour, minute, offsetMinutes = 0) => {
     let newMinute = minute + offsetMinutes;
     let newHour = hour;
