@@ -13,6 +13,26 @@ const addSchedule = (event, date) => {
     schedules.sort((a, b) => a.date - b.date);
 };
 
+const getTimeUntil = (date) => {
+    const now = new Date();
+    // Convert both dates to Asia/Manila timezone
+    const targetDate = new Date(date.toLocaleString("en-US", { timeZone: "Asia/Manila" }));
+    const currentDate = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Manila" }));
+
+    const diff = targetDate - currentDate;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+    if (days > 0) {
+        return `${days} days, ${hours} hours, and ${minutes} minutes`;
+    }
+    if (hours > 0) {
+        return `${hours} hours and ${minutes} minutes`;
+    }
+    return `${minutes} minutes`;
+};
+
 const getUpcomingSchedules = () => {
     const now = new Date();
     return schedules
@@ -27,22 +47,6 @@ const getUpcomingSchedules = () => {
             }),
             timeUntil: getTimeUntil(schedule.date),
         }));
-};
-
-const getTimeUntil = (date) => {
-    const now = new Date();
-    // Convert both dates to Asia/Manila timezone
-    const targetDate = new Date(date.toLocaleString("en-US", { timeZone: "Asia/Manila" }));
-    const currentDate = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Manila" }));
-
-    const diff = targetDate - currentDate;
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-
-    if (days > 0) {
-        return `${days} days and ${hours} hours`;
-    }
-    return `${hours} hours`;
 };
 const calculateCronTime = (hour, minute, offsetMinutes = 0) => {
     let newMinute = minute + offsetMinutes;
@@ -72,6 +76,7 @@ module.exports = {
     FEEDING_TIMES,
     CLEANING_TIME,
     calculateCronTime,
+    getTimeUntil,
     addSchedule,
     getUpcomingSchedules,
     removeSchedule,
