@@ -20,6 +20,47 @@ const { startServer } = require("./server");
 dotenv.config();
 startServer();
 
+
+function generateDailySummary() {
+    const summaryEmbed = new EmbedBuilder()
+        .setColor("#FFB6C1")
+        .setTitle("🐕 Yuki's Daily Care Summary")
+        .setDescription("@everyone *Here's how my day went!*")
+        .setThumbnail(client.user.displayAvatarURL())
+        .addFields(
+            {
+                name: "🍽️ Feeding History",
+                value:
+                    feedingHistory.length === 0
+                        ? "*No meals recorded today*"
+                        : feedingHistory
+                              .map((record) => {
+                                  const time = record.time.toLocaleTimeString("en-US", {
+                                      hour: "2-digit",
+                                      minute: "2-digit",
+                                  });
+                                  return `• ${record.period} meal at ${time} by ${record.fedBy}`;
+                              })
+                              .join("\n"),
+                inline: false,
+            },
+            {
+                name: "🧹 Cleaning Status",
+                value: feedingStatus.cleaned
+                    ? "✅ Area was cleaned today!"
+                    : "❌ Area was not cleaned today",
+                inline: false,
+            },
+        )
+        .setFooter({
+            text: "End of Day Report",
+            iconURL: client.user.displayAvatarURL(),
+        })
+        .setTimestamp();
+
+    return summaryEmbed;
+}
+
 // Define slash commands
 const commands = [
     new SlashCommandBuilder()
@@ -89,7 +130,15 @@ let feedingStatus = {
 let feedingHistory = [];
 
 // Reset status and history daily
-cron.schedule("0 0 * * *", () => {
+cron.schedule("59 23 * * *", async () => {
+    // Send daily summary before reset
+    const channel = client.channels.cache.get(process.env.CHANNEL_ID);
+    if (channel) {
+        const summaryEmbed = generateDailySummary();
+        await channel.send({ embeds: [summaryEmbed] });
+    }
+
+    // Reset status and history
     feedingStatus = {
         morning: false,
         afternoon: false,
