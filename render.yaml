@@ -11,3 +11,5 @@ services:
         sync: false
       - key: TZ
         value: Asia/Manila
+      - key: CLIENT_ID
+        sync: false

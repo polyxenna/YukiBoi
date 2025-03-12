@@ -1,6 +1,6 @@
-# 🐕 Yukiboi Care Bot
+# 🐕 Yuki Care Bot
 
-Woof! I'm Yuki's personal care assistant discord bot! Here to help keep track of my daily routines and make sure I'm happy and healthy! 🐾
+Woof! I'm Yuki's personal care assistant bot! Here to help keep track of my daily routines and make sure I'm happy and healthy! 🐾
 
 ## ✨ Features
 - 🍽️ Feeding time reminders (9 AM, 1 PM, and 6 PM)
@@ -10,28 +10,29 @@ Woof! I'm Yuki's personal care assistant discord bot! Here to help keep track of
 - 🗓️ Schedule and track my important appointments
 - 🔔 Never miss an event with automated reminders
 
-## 🎮 Commands
-- `feed` - Let everyone know I got my food! 🍖
-- `feed [HH:MM] ` - Log feeding time at a specific hour
-- `clean` - Mark my space as fresh and tidy! ✨
-- `history` - See my meal diary for today 📖
-- `schedule` - Check what exciting events are coming up! 📅
-- `sched [event] [MM/DD/YYYY] [HH:MM AM/PM]` - Add new events to my calendar 
-  Example: `sched Vet Visit 12/25/2023 02:30 PM` 🗓️
-- `remove` - Remove a scheduled event
-- `help` - Show all the ways to take care of me 💕
-- `invite` - Share me with other servers! 🎉
+## 🎮 Slash Commands
+- `/feed` - Let everyone know I got my food! 🍖
+- `/feed [time]` - Log feeding time (e.g., `/feed time:09:15 AM`) 🕒
+- `/clean` - Mark my space as fresh and tidy! ✨
+- `/history` - See my meal diary for today 📖
+- `/schedule` - Check what exciting events are coming up! 📅
+- `/sched` - Add new events to my calendar 
+  Example: `/sched event:Vet Visit date:12/25/2023 time:02:30 PM` 🗓️
+- `/remove` - Remove a scheduled event 🗑️
+- `/help` - Show all the ways to take care of me 💕
+- `/invite` - Share me with other servers! 🎉
 
 ## 🚀 Quick Setup
 1. Configure your `.env` file:
 ```sh
 DISCORD_TOKEN=your_bot_token_here
 CHANNEL_ID=your_channel_id_here
+CLIENT_ID=your_application_id_here
 TZ=Asia/Manila
-```   
+```
 2. Install dependencies:
 ```sh
 npm install
 ``` 
 
-🐾 Vibe coded with 💖 by polyxenna
+🐾 Vibe-coded with 💖 by polyxenna
