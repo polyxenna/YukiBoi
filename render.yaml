@@ -9,3 +9,5 @@ services:
         sync: false
       - key: CHANNEL_ID
         sync: false
+      - key: TZ
+        value: Asia/Manila

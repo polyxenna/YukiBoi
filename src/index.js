@@ -6,14 +6,16 @@ const { setupCleaningReminders } = require("./reminders/cleaning");
 const { handleFedCommand } = require("./commands/fed");
 const { handleCleanedCommand } = require("./commands/cleaned");
 const { helpMessage, historyResponses, getRandomResponse } = require("./utils/messages");
-const { getFeedingPeriod } = require("./utils/timeCheck");
+const { getFeedingPeriod, getFeedingPeriodFromTime } = require("./utils/timeCheck");
 const EventScheduler = require("./utils/scheduler");
 const { getUpcomingSchedules } = require("./config/constants");
 const { scheduleViewResponses } = require("./utils/messages");
+const { startServer } = require("./server");
 
 
 
 dotenv.config();
+startServer();
 
 const client = new Client({
     intents: [
@@ -50,16 +52,72 @@ cron.schedule("0 0 * * *", () => {
 client.on("messageCreate", async (message) => {
     if (message.author.bot) return;
 
-    if (message.content.toLowerCase() === "feed") {
-        const period = getFeedingPeriod();
-        if (period) {
+    if (message.content.toLowerCase().startsWith("feed")) {
+        const args = message.content.split(" ");
+
+        // Regular feed command
+        if (args.length === 1) {
+            const period = getFeedingPeriod();
+            if (period) {
+                feedingStatus[period] = true;
+                feedingHistory.push({
+                    period: period,
+                    time: new Date(),
+                    fedBy: message.author.username,
+                });
+                handleFedCommand(message, feedingStatus);
+            }
+        }
+        // Feed with specific time
+        else if (args.length === 2 || args.length === 3) {
+            const timeStr = args.slice(1).join(" "); // Join time and AM/PM if present
+
+            // Validate time format (HH:MM or HH:MM AM/PM)
+            const timeRegex = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]( ?(?:AM|PM|am|pm)?)?$/;
+
+            if (!timeRegex.test(timeStr)) {
+                message.reply(
+                    "❌ Please use the format: feed HH:MM or feed HH:MM AM/PM\nExamples:\n- feed 9:15\n- feed 9:15 PM\n- feed 21:15",
+                );
+                return;
+            }
+
+            const period = getFeedingPeriodFromTime(timeStr);
+            if (!period) {
+                message.reply(
+                    "⚠️ That time doesn't fall within regular feeding hours (Morning: 7-11, Afternoon: 11-16, Evening: 16-20)!",
+                );
+                return;
+            }
+
+            // Check if already fed during this period
+            if (feedingHistory.some((feed) => feed.period === period)) {
+                message.reply(`⚠️ Yuki has already been fed during ${period} time!`);
+                return;
+            }
+
+            // Parse time and create Date object
+            const [timeOnly, ampm] = timeStr.split(" ");
+            let [hours, minutes] = timeOnly.split(":").map(Number);
+
+            if (ampm && ampm.toLowerCase() === "pm" && hours !== 12) {
+                hours += 12;
+            }
+            if (ampm && ampm.toLowerCase() === "am" && hours === 12) {
+                hours = 0;
+            }
+
+            const feedTime = new Date();
+            feedTime.setHours(hours, minutes, 0);
+
             feedingStatus[period] = true;
             feedingHistory.push({
                 period: period,
-                time: new Date(),
+                time: feedTime,
                 fedBy: message.author.username,
             });
-            handleFedCommand(message, feedingStatus);
+
+            message.reply(`✅ Logged feeding time for ${period} at ${timeStr}!`);
         }
     }
 
@@ -96,22 +154,37 @@ if (message.content.toLowerCase() === "help") {
         .addFields(
             {
                 name: "🍽️ Feeding Commands",
-                value: "`feed` - Mark my meal as given\n`history` - See my feeding record for today",
+                value: "**feed** - Mark my meal as given\n**feed [HH:MM]** - Log feeding time at a specific hour\nExample: `feed 9:15 AM`\n**history** - See my feeding record for today",
+                inline: false,
+            },
+            {
+                name: "\n",
+                value: "\n",
                 inline: false,
             },
             {
                 name: "\n🧹 Cleaning Commands",
-                value: "`clean` - Mark my area as cleaned",
+                value: "**clean** - Mark my area as cleaned",
+                inline: false,
+            },
+            {
+                name: "\n",
+                value: "\n",
                 inline: false,
             },
             {
                 name: "\n📅 Schedule Commands",
-                value: "`schedule` - View all my upcoming events\n`sched [event] [MM/DD/YYYY] [HH:MM AM/PM]` - Schedule an event\nExample: `sched Vet Visit 12/25/2023 02:30 PM`\n`remove [event]` - Remove a scheduled event",
+                value: "**schedule** - View all my upcoming events\n**sched [event] [MM/DD/YYYY] [HH:MM AM/PM]** - Schedule an event\nExample: `sched Vet Visit 12/25/2023 02:30 PM`\n**remove [event]** - Remove a scheduled event",
+                inline: false,
+            },
+            {
+                name: "\n",
+                value: "\n",
                 inline: false,
             },
             {
                 name: "\n📚 Other Commands",
-                value: "`invite` - Invite me to your server!",
+                value: "**invite** - Invite me to your server!",
                 inline: false,
             },
         )
@@ -130,7 +203,7 @@ if (message.content.toLowerCase() === "help") {
 
         // Match pattern: event name, date (MM/DD/YYYY), time (HH:MM AM/PM)
         const regex = /(.+) (\d{2}\/\d{2}\/\d{4}) (\d{1,2}:\d{2} [APM]{2})/;
-        const match = input.match(regex);
+        const match = RegExp(regex).exec(input);
 
         if (!match) {
             message.reply(

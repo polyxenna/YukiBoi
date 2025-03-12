@@ -12,6 +12,7 @@ Woof! I'm Yuki's personal care assistant discord bot! Here to help keep track of
 
 ## 🎮 Commands
 - `feed` - Let everyone know I got my food! 🍖
+- `feed [HH:MM] ` - Log feeding time at a specific hour
 - `clean` - Mark my space as fresh and tidy! ✨
 - `history` - See my meal diary for today 📖
 - `schedule` - Check what exciting events are coming up! 📅
@@ -26,6 +27,7 @@ Woof! I'm Yuki's personal care assistant discord bot! Here to help keep track of
 ```sh
 DISCORD_TOKEN=your_bot_token_here
 CHANNEL_ID=your_channel_id_here
+TZ=Asia/Manila
 ```   
 2. Install dependencies:
 ```sh

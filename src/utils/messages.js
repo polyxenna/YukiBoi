@@ -26,16 +26,16 @@ const fedResponses = [
 
 
 const feedingAlerts = [
-    "🥺 *Sad puppy eyes* It's been {minutes} minutes past my meal time... I'm starving!",
-    "🐕 *Gentle whimper* I'm getting quite hungry... {minutes} minutes late!",
-    "🐾 *Paw on your leg* Hey, remember my food? It's {minutes} minutes late!",
-    "🍽️ *Looks at empty bowl* Umm... it's been {minutes} minutes... did you forget me?",
-    "😢 *Little whine* My tummy is rumbling! It's already {minutes} minutes late!",
-    "🦴 *Stares longingly at you* It's been {minutes} minutes... feed me, please?",
-    "🐶 *Big puppy eyes* I promise to be extra cute if you feed me soon... it's {minutes} minutes late!",
-    "💤 *Lying down dramatically* I'll just nap and dream of food... {minutes} minutes late though. 😔",
-    "🍗 *Sniff sniff* I can almost smell the food... but it's {minutes} minutes late!",
-    "🐾 *Taps bowl with paw* Hello? It's been {minutes} minutes... just checking if you remembered me!",
+    "🥺 *Sad puppy eyes* @everyone It's been {minutes} minutes past my meal time... I'm starving!",
+    "🐕 *Gentle whimper* @everyone I'm getting quite hungry... {minutes} minutes late!",
+    "🐾 *Paw on your leg* @everyone Hey, remember my food? It's {minutes} minutes late!",
+    "🍽️ *Looks at empty bowl* @everyone Umm... it's been {minutes} minutes... did you forget me?",
+    "😢 *Little whine* @everyone My tummy is rumbling! It's already {minutes} minutes late!",
+    "🦴 *Stares longingly at you* @everyone It's been {minutes} minutes... feed me, please?",
+    "🐶 *Big puppy eyes* @everyone I promise to be extra cute if you feed me soon... it's {minutes} minutes late!",
+    "💤 *Lying down dramatically* @everyone I'll just nap and dream of food... {minutes} minutes late though. 😔",
+    "🍗 *Sniff sniff* @everyone I can almost smell the food... but it's {minutes} minutes late!",
+    "🐾 *Taps bowl with paw* @everyone Hello? It's been {minutes} minutes... just checking if you remembered me!",
 ];
 
 
