@@ -2,9 +2,9 @@ const getFeedingPeriod = () => {
     const now = new Date();
     const hour = now.getHours();
 
-    if (hour >= 7 && hour < 11) return "morning";
-    if (hour >= 11 && hour < 16) return "afternoon";
-    if (hour >= 16 && hour < 20) return "evening";
+    if (hour >= 6 && hour < 12) return "morning";
+    if (hour >= 12 && hour < 18) return "afternoon";
+    if (hour >= 18 && hour < 23) return "evening";
     return null;
 };
 

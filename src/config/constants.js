@@ -1,7 +1,7 @@
 const FEEDING_TIMES = {
-    morning: { hour: 9, minute: 0 },
+    morning: { hour: 8, minute: 0 },
     afternoon: { hour: 13, minute: 0 },
-    evening: { hour: 18, minute: 0 },
+    evening: { hour: 20, minute: 0 },
 };
 
 const CLEANING_TIME = { hour: 23, minute: 0 };

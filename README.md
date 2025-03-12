@@ -3,11 +3,12 @@
 Woof! I'm Yuki's personal care assistant bot! Here to help keep track of my daily routines and make sure I'm happy and healthy! 🐾
 
 ## ✨ Features
-- 🍽️ Feeding time reminders (9 AM, 1 PM, and 6 PM)
+- 🍽️ Feeding time reminders (8 AM, 1 PM, and 8 PM)
 - 📝 Track when I get my yummy meals
 - ⏰ Gentle reminders if someone forgets to feed me
 - 🧹 Daily cleaning reminder at 11 PM
 - 🗓️ Schedule and track my important appointments
+- 🐕 Receive a daily care summary at the end of the day
 - 🔔 Never miss an event with automated reminders
 
 ## 🎮 Slash Commands
