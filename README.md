@@ -35,5 +35,3 @@ TZ=Asia/Manila
 ```sh
 npm install
 ``` 
-
-🐾 Vibe-coded with 💖 by polyxenna
